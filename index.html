@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F6E67">
+<meta name="description" content="Ferramenta de apoio matemático para estimar redução de volume e concentração de células CD34+ em processamento de medula óssea.">
+<title>CD34+ Calculadora</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="app-header">
+    <div class="header-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C12 2 5 11.5 5 15.5C5 19.09 8.13 22 12 22C15.87 22 19 19.09 19 15.5C19 11.5 12 2 12 2Z" fill="#FFFFFF"/>
+        <circle cx="12" cy="16" r="2.4" fill="#0F6E67"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Calculadora CD34+</h1>
+      <p>Processamento e redução de volume</p>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title" class="card-title">Dados de entrada</h2>
+
+      <div class="field">
+        <label for="volumeInicial">Volume inicial</label>
+        <div class="input-wrap">
+          <input
+            type="text"
+            inputmode="decimal"
+            id="volumeInicial"
+            placeholder="Ex.: 100"
+            aria-describedby="volumeInicial-unit">
+          <span class="unit" id="volumeInicial-unit">mL</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="concInicial">Concentração inicial de CD34+</label>
+        <div class="input-wrap">
+          <input
+            type="text"
+            inputmode="numeric"
+            id="concInicial"
+            placeholder="Ex.: 200.000"
+            aria-describedby="concInicial-unit">
+          <span class="unit" id="concInicial-unit">células/µL</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="concDesejada">Concentração desejada</label>
+        <div class="input-wrap">
+          <input
+            type="text"
+            inputmode="numeric"
+            id="concDesejada"
+            value="400.000"
+            aria-describedby="concDesejada-unit concDesejada-hint">
+          <span class="unit" id="concDesejada-unit">células/µL</span>
+        </div>
+        <p class="hint" id="concDesejada-hint">Valor padrão do serviço. Qualquer alteração deve seguir o protocolo validado.</p>
+      </div>
+
+      <div id="errorBox" class="error-box" role="alert" hidden></div>
+
+      <button id="calcularBtn" class="btn-primary" type="button">CALCULAR</button>
+    </section>
+
+    <section id="resultSection" class="card result-card" hidden aria-labelledby="result-title">
+      <h2 id="result-title" class="card-title">Resultado</h2>
+
+      <div id="alertBox" class="alert-box" hidden></div>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="result-label">Volume final calculado</span>
+          <span class="result-value" id="resVolumeFinal">—</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Volume estimado a retirar</span>
+          <span class="result-value" id="resVolumeRetirar">—</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Concentração final desejada</span>
+          <span class="result-value" id="resConcFinal">—</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="detailsSection" class="card" hidden aria-labelledby="details-title">
+      <h2 id="details-title" class="card-title">Detalhes do cálculo</h2>
+      <p class="formula-label">Fórmula utilizada</p>
+      <p class="formula">V2 = (V1 × C1) ÷ C2</p>
+      <div class="calc-steps" id="calcSteps"></div>
+    </section>
+
+    <section id="conferenceSection" class="card" hidden aria-labelledby="conf-title">
+      <h2 id="conf-title" class="card-title">Conferência matemática</h2>
+      <div class="conference" id="conferenceBody"></div>
+    </section>
+
+    <section class="card disclaimer-card">
+      <p class="disclaimer">
+        ⚠️ Esta ferramenta é um apoio matemático para testes e aprendizado. Ela assume conservação teórica
+        do número de células (V1 × C1 = V2 × C2) e não considera possíveis perdas ou recuperação de CD34+
+        durante o processamento real. Não substitui protocolo institucional, controle de qualidade ou
+        avaliação do responsável técnico.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>CD34+ Calculadora · uso interno para apoio ao cálculo</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
